@@ -1,0 +1,127 @@
+{
+    "name": "jtl/shop",
+    "license": "proprietary",
+    "description": "Das Shopsystem von JTL-Software",
+    "type": "project",
+    "homepage": "https://www.jtl-software.de",
+    "require": {
+        "php-64bit": ">=7.3",
+        "ext-bcmath": "*",
+        "ext-curl": "*",
+        "ext-dom": "*",
+        "ext-ftp": "*",
+        "ext-gd": "*",
+        "ext-iconv": "*",
+        "ext-intl": "*",
+        "ext-json": "*",
+        "ext-libxml": "*",
+        "ext-mbstring": "*",
+        "ext-pdo": "*",
+        "ext-simplexml": "*",
+        "ext-soap": "*",
+        "ext-xml": "*",
+        "ext-zip": "*",
+        "ext-zlib": "*",
+        "ext-fileinfo": "*",
+        "intervention/image": "^2.6",
+        "ifsnop/mysqldump-php": "^2.1",
+        "symfony/var-dumper": "^5.1",
+        "symfony/process": "^5.1",
+        "jtlshop/shop5-systemcheck": "2.0.2",
+        "jtlshop/sccbs3": "1.0.1",
+        "jtlshop/scc": "1.0.1",
+        "jtlshop/phpquery": "1.0.1",
+        "jtlshop/xtea": "1.0.1",
+        "smarty/smarty": "~3.1",
+        "jdorn/sql-formatter": "^1.2",
+        "phpmyadmin/sql-parser": "^5.4.2",
+        "phpgangsta/googleauthenticator": "dev-master",
+        "phpmailer/phpmailer": "^6.0",
+        "jtlshop/qrcodegenerator": "dev-master",
+        "erusev/parsedown": "1.8.0-beta-5",
+        "chamilo/pclzip": "^2.8",
+        "psr/container": "1.0.0",
+        "lstrojny/functional-php": "^1.14",
+        "monolog/monolog": "^2.1",
+        "myclabs/php-enum": "^1.7",
+        "jtlshop/semver": "~0.0.7",
+        "studio-42/elfinder": "^2.1",
+        "maximebf/debugbar": "^1.16",
+        "gettext/gettext": "^5.5.4",
+        "jtl/oauth2-client": "^1.0",
+        "illuminate/container": "^8.12",
+        "symfony/console": "^5.1",
+        "symfony/finder": "^5.1",
+        "mobiledetect/mobiledetectlib": "^2.8",
+        "fzaninotto/faker": "dev-master",
+        "cocur/slugify": "^4.0",
+        "league/flysystem": "^2.0",
+        "league/flysystem-ftp": "^2.0",
+        "league/flysystem-sftp": "^2.0",
+        "league/flysystem-ziparchive": "^2.0",
+        "illuminate/collections": "^8.12",
+        "nesbot/carbon": "^2.41",
+        "gettext/translator": "^1.0",
+        "mrclay/minify": "^3.0",
+        "wikimedia/less.php": "~3.0.0",
+        "scssphp/scssphp": "^1.5.2"
+    },
+    "require-dev": {
+        "phpunit/php-token-stream": "^3.0",
+        "mschop/pathogen": "^0.6",
+        "nikic/php-parser": "^4.10",
+        "phpmd/phpmd": "@stable",
+        "phpunit/phpunit": "^9.3",
+        "squizlabs/php_codesniffer": "^3.4"
+    },
+    "suggest": {
+        "ext-redis": "Better caching method",
+        "ext-exif": "Improves getting image meta data",
+        "ext-zend-opcache": "Improves performance"
+    },
+    "repositories": [
+        {
+            "type": "vcs",
+            "url": "https://gitlab.com/jtl-software/jtl-shop/tools/shop5-systemcheck.git"
+        },
+        {
+            "type": "vcs",
+            "url": "https://gitlab.com/jtl-software/jtl-shop/tools/qrcodegenerator.git"
+        },
+        {
+            "type": "vcs",
+            "url": "https://gitlab.com/jtl-software/jtl-shop/tools/sccbs3.git"
+        },
+        {
+            "type": "vcs",
+            "url": "https://gitlab.com/jtl-software/jtl-shop/tools/scc.git"
+        },
+        {
+            "type": "vcs",
+            "url": "https://gitlab.com/jtl-software/oauth2/client.git"
+        },
+        {
+            "type": "vcs",
+            "url": "https://gitlab.com/jtl-software/jtl-shop/tools/phpquery.git"
+        },
+        {
+            "type": "vcs",
+            "url": "https://gitlab.com/jtl-software/jtl-shop/tools/xtea.git"
+        },
+        {
+            "type": "vcs",
+            "url": "https://gitlab.com/jtl-software/jtl-shop/tools/semver.git"
+        }
+
+    ],
+    "autoload": {
+        "psr-4": {
+            "JTL\\": ["src/"],
+            "Plugin\\": ["../plugins/"],
+            "Template\\": ["../templates/"]
+        }
+    },
+    "autoload-dev": {
+        "psr-4": { "Tests\\": "../tests/" }
+    }
+}

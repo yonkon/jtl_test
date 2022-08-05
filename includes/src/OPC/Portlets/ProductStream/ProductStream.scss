@@ -1,0 +1,48 @@
+.opc-ProductStream {
+  &.opc-ProductStream-slider {
+    img {
+      width: 100%;
+    }
+  }
+  &.opc-ProductStream-simpleSlider {
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+    }
+    .slick-slide {
+      position: relative;
+      padding: 0 1rem;
+
+      &:before {
+        content: "";
+        display: block;
+        padding-bottom: 100%;
+      }
+
+      > :first-child {
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+
+        .product-wrapper {
+          height: 100%;
+
+          .square-image {
+            height: 100%;
+
+            .inner {
+              height: 100%;
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+.opc-product-slider {
+  overflow: hidden;
+}

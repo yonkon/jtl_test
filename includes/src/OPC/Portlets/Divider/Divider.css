@@ -1,0 +1,41 @@
+body:not(.is-nova) .opc-Divider {
+  display: flex;
+  flex-basis: 100%;
+  align-items: center;
+  color: #525252;
+  margin: 8px 0;
+  font-size: 1.425rem;
+  font-family: "Montserrat", Helvetica, Arial, sans-serif;
+}
+body:not(.is-nova) .opc-Divider:before, body:not(.is-nova) .opc-Divider:after {
+  content: "";
+  flex-grow: 1;
+  background: #ebebeb;
+  height: 2px;
+  font-size: 0;
+  line-height: 0;
+  margin: 0 30px;
+}
+body:not(.is-nova) .opc-Divider a {
+  text-decoration: none;
+  border-bottom: 0.375rem solid transparent;
+  font-weight: 600;
+}
+body:not(.is-nova) .opc-Divider a:hover {
+  border-color: #F8BF00;
+}
+body:not(.is-nova) .opc-Divider.opc-Divider-empty:before {
+  margin-right: 0;
+}
+body:not(.is-nova) .opc-Divider.opc-Divider-empty:after {
+  margin-left: 0;
+}
+
+.is-nova .hr-sect.opc-Divider-empty::before {
+  margin: 0;
+}
+.is-nova .hr-sect.opc-Divider-empty::after {
+  margin: 0;
+}
+
+/*# sourceMappingURL=Divider.css.map */

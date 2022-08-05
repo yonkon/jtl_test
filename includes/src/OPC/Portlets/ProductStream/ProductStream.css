@@ -1,0 +1,39 @@
+.opc-ProductStream.opc-ProductStream-slider img {
+  width: 100%;
+}
+.opc-ProductStream.opc-ProductStream-simpleSlider img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+.opc-ProductStream.opc-ProductStream-simpleSlider .slick-slide {
+  position: relative;
+  padding: 0 1rem;
+}
+.opc-ProductStream.opc-ProductStream-simpleSlider .slick-slide:before {
+  content: "";
+  display: block;
+  padding-bottom: 100%;
+}
+.opc-ProductStream.opc-ProductStream-simpleSlider .slick-slide > :first-child {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+}
+.opc-ProductStream.opc-ProductStream-simpleSlider .slick-slide > :first-child .product-wrapper {
+  height: 100%;
+}
+.opc-ProductStream.opc-ProductStream-simpleSlider .slick-slide > :first-child .product-wrapper .square-image {
+  height: 100%;
+}
+.opc-ProductStream.opc-ProductStream-simpleSlider .slick-slide > :first-child .product-wrapper .square-image .inner {
+  height: 100%;
+}
+
+.opc-product-slider {
+  overflow: hidden;
+}
+
+/*# sourceMappingURL=ProductStream.css.map */

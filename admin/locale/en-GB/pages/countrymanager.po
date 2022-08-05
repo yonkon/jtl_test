@@ -1,0 +1,81 @@
+msgid ""
+msgstr ""
+"Content-Type: text/plain; charset=UTF-8\n"
+
+msgid "countryManager"
+msgstr "Country administration"
+
+msgid "countryManagerURL"
+msgstr "https://jtl-url.de/l87bq"
+
+msgid "countryManagerDesc"
+msgstr "Here you can manage all countries used in JTL-Shop independently of JTL-Wawi. The names of the countries are automatically generated in the respective language for front and back end using the ISO code. Therefore, the names cannot be changed. The fields \"German\" and \"English\" should be named like the respective countries in JTL-Wawi."
+
+msgid "ISO"
+msgstr "ISO"
+
+msgid "Name"
+msgstr "Name"
+
+msgid "DBcDeutsch"
+msgstr "German"
+
+msgid "DBcEnglisch"
+msgstr "English"
+
+msgid "isEU"
+msgstr "EU"
+
+msgid "Continent"
+msgstr "Continent"
+
+msgid "isShippingAvailable"
+msgstr "Selectable as destination country"
+
+msgid "isShippingAvailableDesc"
+msgstr "Automatically set true when a country is selectable in at least one shipping method."
+
+msgid "isPermitRegistration"
+msgstr "Selectable as billing country"
+
+msgid "isPermitRegistrationDesc"
+msgstr "Will automatically be set to 'Yes' as soon as a country is activated in a shipping method. Will also automatically be set to 'No' when a country is no longer activated in any shipping methods."
+
+msgid "isRequireStateDefinition"
+msgstr "Federal state is mandatory"
+
+msgid "updateCountry"
+msgstr "Edit country"
+
+msgid "addCountry"
+msgstr "Add country"
+
+msgid "errorCountryIsoExists"
+msgstr "A country with ISO code \"%s\" already exists."
+
+msgid "confirmDeleteCountry"
+msgstr "Really delete country \"%s\" with ISO code \"%s\"? "
+
+msgid "successCountryAdd"
+msgstr "Country with ISO code \"%s\" added successfully."
+
+msgid "successCountryDelete"
+msgstr "Country with ISO code \"%s\" deleted successfully."
+
+msgid "successCountryUpdate"
+msgstr "Country with ISO code \"%s\" updated successfully."
+
+msgid "errorIsoDoesNotExist"
+msgstr "A country with ISO code \"%s\" can not be found."
+
+msgid "warningCreateCountryInWawi"
+msgstr "You also need to create the same country in JTL-Wawi and set the corresponding tax zone: <a href=\"https://guide.jtl-software.de/jtl-wawi/global/laender-verwalten/\" target=\"_blank\">Manage countries</a>"
+
+msgid "infoRegistrationCountriesActivated"
+msgstr "The countries <strong>%s</strong> have been added to the selectable billing countries. Please see <a href=\"countrymanager.php\" target=\"_blank\">Country administration</a>."
+
+msgid "warningRegistrationCountriesDeactivated"
+msgstr "The countries <strong>%s</strong> have been removed from the selectable billing countries. Please see <a href=\"countrymanager.php\" target=\"_blank\">Country administration</a>."
+
+msgid "warningShippingAvailable"
+msgstr "The country is activated as a destination country in at least one shipping method. We therefore recommend enabling the selection of the country as a billing country as well."
