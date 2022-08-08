@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jtlshopplugin>
+    <Name>Landswitcher</Name>
+    <Description>Ermöglicht das Speichern von länderbasierten Weiterleitungs-URLs</Description>
+    <Author>Volodymyr Sudarkov</Author>
+    <URL>https://www.jtl-software.de</URL>
+    <PluginID>landswitcher</PluginID>
+    <XMLVersion>100</XMLVersion>
+    <ShopVersion>5.0.0</ShopVersion>
+    <Version>1.0.0</Version>
+    <CreateDate>2022-08-05</CreateDate>
+    <Install>
+        <FlushTags>CACHING_GROUP_CATEGORY</FlushTags>
+    </Install>
+</jtlshopplugin>
