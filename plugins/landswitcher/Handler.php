@@ -6,7 +6,6 @@ namespace Plugin\landswitcher;
 
 use JTL\DB\DbInterface;
 use JTL\Exceptions\InvalidInputException;
-use JTL\IO\IOResponse;
 use JTL\Plugin\PluginInterface;
 use Plugin\landswitcher\Models\LandswitcherRedirectUrlModel;
 
@@ -43,148 +42,129 @@ class Handler
     public function getIsoCodes()
     {
         if (is_null($this->allowedIsoCodes)) {
-            $isoCodes = $this->db->selectAll('tland', [], []);
+            $isoCodes = $this->db->selectArray('tland', [], [], 'cISO');
             $this->allowedIsoCodes = array_map(function ($item) {
-                return $item['cISO'];
+                return $item->cISO;
             }, $isoCodes);
         }
         return $this->allowedIsoCodes;
     }
 
-    public function hasIsoCode($code)
+    public function hasIsoCode($country_iso)
     {
-        return in_array($code, $this->getIsoCodes());
+        return in_array($country_iso, $this->getIsoCodes());
+    }
+
+    public function validateUrl($url): bool
+    {
+        return !!preg_match('@((https?://)|(/?/))?[a-zA-Z0-9_\-]+\.[a-zA-Z0-9_\-.]+[a-zA-Z0-9]\S*@', $url);
     }
 
 
-    public function onCreate()
+    public function onCreate($country_iso, $url)
     {
-        $code = empty($_POST['code']) ? null : $_POST['code'];
-        $url = empty($_POST['url']) ? null : $_POST['url'];
-
         if (!$this->validateUrl($url)) {
-            throw new InvalidInputException('Invalid URL');
+            throw new InvalidInputException('Invalid URL', $url);
         }
-        if (!$this->hasIsoCode($code)) {
-            throw new InvalidInputException('Unknown country');
+        if (!$this->hasIsoCode($country_iso)) {
+            throw new InvalidInputException('Unknown country', $country_iso);
         }
 
-        $result = new IOResponse();
         $response = new \stdClass();
-        $existing = $this->db->selectSingleRow(self::TABLE, 'country_iso', $code);
+        $existing = $this->db->selectSingleRow(self::TABLE, 'country_iso', $country_iso);
 
         if ($existing) {
-            $response->status = 'FAILED';
-            $response->message = 'Redirect already exists for selected country';
+            throw new InvalidInputException('Redirect already exists for selected country', $country_iso);
         } else {
-            $rowObject = new LandswitcherRedirectUrlModel($code, $url);
+            $rowObject = new LandswitcherRedirectUrlModel($country_iso, $url);
 
             $this->db->insert(self::TABLE, $rowObject);
 
             $response->status = 'OK';
             $response->message = 'Redirect saved successfully';
+            return $response;
         }
-        $result->assignVar('response', $response);
-        return $result;
     }
 
-    public function validateUrl($url): bool
-    {
-        return !!preg_match('@(https?://)|(/?/)[a-zA-Z0-9_\-]+\.[a-zA-Z0-9_\-.]+[a-zA-Z0-9]@', $url);
-    }
 
-    public function onUpdate()
+    public function onUpdate($country_iso, $url)
     {
-        $code = empty($_POST['code']) ? null : $_POST['code'];
-        $url = empty($_POST['url']) ? null : $_POST['url'];
-
         if (!$this->validateUrl($url)) {
-            throw new InvalidInputException('Invalid URL');
+            throw new InvalidInputException('Invalid URL', $url);
         }
-        if (!$this->hasIsoCode($code)) {
-            throw new InvalidInputException('Unknown country');
+        if (!$this->hasIsoCode($country_iso)) {
+            throw new InvalidInputException('Unknown country', $country_iso);
         }
 
-        $result = new IOResponse();
         $response = new \stdClass();
 
-        $rowObject = new LandswitcherRedirectUrlModel($code, $url);
+        $rowObject = new LandswitcherRedirectUrlModel($country_iso, $url);
 
-        if ($this->db->update(self::TABLE, 'code', $code, $rowObject)) {
+        if ($this->db->update(self::TABLE, 'country_iso', $country_iso, $rowObject)) {
             $response->status = 'OK';
             $response->message = 'Redirect saved successfully';
-        } else {
-            $response->status = 'FAILED';
-            $response->message = 'Redirect doesnt exist for selected country';
+            return $response;
         }
-        $result->assignVar('response', $response);
-        return $result;
+
+        throw new InvalidInputException('Redirect doesnt exist for selected country', $country_iso);
     }
 
-    public function onDelete()
+    public function onDelete($country_iso)
     {
-        $code = empty($_POST['code']) ? null : $_POST['code'];
-
-        if (!$this->hasIsoCode($code)) {
-            throw new InvalidInputException('Unknown country');
+        if (!$this->hasIsoCode($country_iso)) {
+            throw new InvalidInputException('Unknown country', $country_iso);
         }
 
-        $result = new IOResponse();
         $response = new \stdClass();
 
-
-        if ($this->db->delete(self::TABLE, 'code', $code)) {
+        if ($this->db->delete(self::TABLE, 'country_iso', $country_iso)) {
             $response->status = 'OK';
             $response->message = 'Redirect saved successfully';
-        } else {
-            $response->status = 'FAILED';
-            $response->message = 'Redirect doesnt exist for selected country';
+            return $response;
         }
-        $result->assignVar('response', $response);
-        return $result;
+        throw new InvalidInputException('Redirect doesnt exist for selected country', $country_iso);
     }
 
-    public function onGetOne()
+    public function onGetOne($country_iso)
     {
-        $code = empty($_POST['code']) ? null : $_POST['code'];
-
-        $result = new IOResponse();
         $response = new \stdClass();
 
-        $redirectUrlRow = $this->db->select(self::TABLE, 'country_iso', $code);
+        $redirectUrlRow = $this->db->getSingleObject(
+            '
+SELECT t.*, tland.cDeutsch as name 
+FROM ' . self::TABLE . ' t
+JOIN tland 
+    ON tland.cISO = t.country_iso  
+ WHERE t.country_iso = :country_iso',
+            ['country_iso' => $country_iso]
+        );
 
         if (!$redirectUrlRow) {
-            $response->status = 'FAILED';
-            $response->message = 'Redirect doesnt exist for selected country';
-            $response->item = null;
-        } else {
-            $response->status = 'OK';
-            $response->message = 'Redirect found';
-            $response->item = new LandswitcherRedirectUrlModel($redirectUrlRow['country_iso'], $redirectUrlRow['url']);
+            throw new InvalidInputException('Redirect doesnt exist for selected country', $country_iso);
         }
 
 
-        $result->assignVar('response', $response);
-        return $result;
+        $response->status = 'OK';
+        $response->message = 'Redirect found';
+        $response->item = $redirectUrlRow;
+        return $response;
     }
 
     public function onGetList()
     {
-        $result = new IOResponse();
         $response = new \stdClass();
 
-        $redirectUrlRows = $this->db->selectAll(self::TABLE, [], []);
-
         $response->status = 'OK';
-        $response->items = [];
-        foreach ($redirectUrlRows as $redirectUrlRow) {
-            $response->items[] = new LandswitcherRedirectUrlModel(
-                $redirectUrlRow['country_iso'], $redirectUrlRow['url']
-            );
-        }
+        $response->items = $this->db->getObjects(
+            '
+SELECT t.*, tland.cDeutsch as name 
+FROM ' . self::TABLE . ' t
+JOIN tland 
+    ON tland.cISO = t.country_iso ',
+        );
 
-        $result->assignVar('response', $response);
-        return $result;
+
+        return $response;
     }
 
 

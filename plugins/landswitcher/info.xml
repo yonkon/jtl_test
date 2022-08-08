@@ -11,5 +11,16 @@
     <CreateDate>2022-08-05</CreateDate>
     <Install>
         <FlushTags>CACHING_GROUP_CATEGORY</FlushTags>
+        <Adminmenu>
+            <Customlink>
+                <Name>List</Name>
+                <Filename>list.php</Filename>
+            </Customlink>
+            <Customlink>
+                <Name>Add</Name>
+                <Filename>add.php</Filename>
+            </Customlink>
+        </Adminmenu>
+
     </Install>
 </jtlshopplugin>
